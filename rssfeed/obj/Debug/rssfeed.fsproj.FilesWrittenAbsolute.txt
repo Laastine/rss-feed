@@ -1,0 +1,7 @@
+/Users/laastine/dev/fsharp/rss-feed/rss-feed/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/laastine/dev/fsharp/rss-feed/rssfeed/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.fs
+/Users/laastine/dev/fsharp/rss-feed/build/rssfeed.exe.config
+/Users/laastine/dev/fsharp/rss-feed/build/rssfeed.exe.mdb
+/Users/laastine/dev/fsharp/rss-feed/build/rssfeed.exe
+/Users/laastine/dev/fsharp/rss-feed/rssfeed/obj/Debug/rssfeed.exe
+/Users/laastine/dev/fsharp/rss-feed/rssfeed/obj/Debug/rssfeed.exe.mdb
