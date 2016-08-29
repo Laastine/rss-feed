@@ -1,5 +1,5 @@
 .fake/
-src/obj/
-src/bin/
+rssfeed/obj/
+rssfeed/bin/
 packages/
 build/*
