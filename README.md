@@ -7,6 +7,15 @@ Mono cross platform .NET framework: `brew install mono`</br>
 F# Project Builder: `brew tap samritchie/forge && brew install forge`
 
 ### Build and run
+
+#### Front end
+ 
+```
+cd rssfeed/web
+npm install
+npm run build
+```
+
 - Compile sources 
 `./build.sh`
 

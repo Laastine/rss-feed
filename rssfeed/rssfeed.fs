@@ -51,7 +51,5 @@ let app : WebPart =
 [<EntryPoint>]
 let main argv =
     printfn "Starting Suave server on port 8083"
-    let xml = fetch "http://feeds.feedburner.com/RockPaperShotgun"
-    exists(xml)
     startWebServer defaultConfig app
     0
