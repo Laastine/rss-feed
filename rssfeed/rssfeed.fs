@@ -1,16 +1,10 @@
 module rssfeed
 
 open Suave
-open Suave.Http
-open Suave.Web
 open Suave.Filters
-open Suave.Authentication
 open Suave.Operators
 open Suave.Response
-open Suave.Successful
 open Suave.Files
-open Suave.Writers
-open Suave.RequestErrors
 
 open System.IO
 open System.Net
@@ -44,8 +38,6 @@ let app : WebPart =
       [ 
         path "/" >=> file "rssfeed/web/public/index.html"
         pathScan "%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename)) ]
-    POST >=> choose
-      [path "/foo" >=> OK "thanks"]
   ]
 
 [<EntryPoint>]
