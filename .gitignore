@@ -1,5 +1,8 @@
 .fake/
 rssfeed/obj/
 rssfeed/bin/
+build/
 packages/
-build/*
+rssfeed/web/node_modules/
+rssfeed/web/public/bundle.js
+rssfeed/web/public/style.css
