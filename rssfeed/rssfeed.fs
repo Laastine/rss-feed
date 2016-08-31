@@ -1,5 +1,17 @@
 module rssfeed
 
+open Suave
+open Suave.Http
+open Suave.Web
+open Suave.Filters
+open Suave.Authentication
+open Suave.Operators
+open Suave.Response
+open Suave.Successful
+open Suave.Files
+open Suave.Writers
+open Suave.RequestErrors
+
 open System.IO
 open System.Net
 open System.Text.RegularExpressions
@@ -23,12 +35,23 @@ let fetch (url: string) =
 
 let exists (x : string option) =
     match x with
-    | Some(x) -> printf "%s\n" x
+    | Some(x) -> printfn "%s" x
     | None -> printf "Not found"
+
+let app : WebPart =
+  choose [
+    GET >=> choose
+      [ 
+        path "/" >=> file "rssfeed/web/public/index.html"
+        pathScan "%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename)) ]
+    POST >=> choose
+      [path "/foo" >=> OK "thanks"]
+  ]
 
 [<EntryPoint>]
 let main argv =
     printfn "Starting Suave server on port 8083"
     let xml = fetch "http://feeds.feedburner.com/RockPaperShotgun"
     exists(xml)
+    startWebServer defaultConfig app
     0
