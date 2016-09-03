@@ -49,8 +49,9 @@
   <ItemGroup>
     <Reference Include="../packages/Suave/lib/net40/Suave.dll" />
     <Reference Include="../packages/FSharp.Core/lib/net40/FSharp.Core.dll" />
-    <Reference Include="../packages/FSharp.Data/lib/net40/FSharp.Data.dll" />
-    <Reference Include="../packages/FSharp.Data.TypeProviders/lib/net40/FSharp.Data.TypeProviders.dll" />
+    <Reference Include="../packages/FSharp.Core/lib/net40/FSharp.Core.dll" />
+    <Reference Include="../packages/Npgsql/lib/net40/Npgsql.dll" />
+    <Reference Include="../packages/SQLProvider/lib/FSharp.Data.SqlProvider.dll" />
     <Compile Include="db.fs" />
     <Compile Include="rssfeed.fs" />
     <None Include="App.config" />

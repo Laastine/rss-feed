@@ -1,5 +1,6 @@
 source https://www.nuget.org/api/v2
 nuget FAKE
 nuget FSharp.Data
-nuget FSharp.Data.TypeProviders
+nuget Npgsql 2.2.7
+nuget SQLProvider 1.0.23
 nuget Suave

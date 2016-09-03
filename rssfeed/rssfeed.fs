@@ -6,16 +6,11 @@ open Suave.Operators
 open Suave.Response
 open Suave.Files
 
-open System
 open System.IO
 open System.Net
 open System.Text.RegularExpressions
 
-let getVar (envVar: string) = 
-  System.Environment.GetEnvironmentVariables()
-  |> Seq.cast<System.Collections.DictionaryEntry>
-  |> Seq.map (fun d -> d.Key :?> string, d.Value :?> string)
-  |> Seq.filter (fun x -> String.Compare(fst x, envVar) = 0)
+open db
 
 let fetch (url: string) =
   try
@@ -50,7 +45,8 @@ let app : WebPart =
 [<EntryPoint>]
 let main argv =
     printfn "Starting Suave server on port 8083"
-    let addr = getVar("POSTGRES_URL")
-    printfn "%A" addr
+    let ctx = db.getContext()
+    let feeds = db.getFeeds ctx
+    printfn "%O" feeds
     startWebServer defaultConfig app
     0
