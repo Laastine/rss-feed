@@ -6,3 +6,4 @@ packages/
 rssfeed/web/node_modules/
 rssfeed/web/public/bundle.js
 rssfeed/web/public/style.css
+.paket/paket.exe
