@@ -16,6 +16,27 @@ npm install
 npm run build
 ```
 
+#### DB setup
+Create rss-feed virtualbox image:
+`docker-machine create --driver virtualbox rss-feed`
+
+Add env variable to your shell where you run docker cmds:
+`eval "$(docker-machine env rss-feed)"`
+
+Install postgres DB to docker:
+`docker pull postgres:9.6`
+
+Start postgres in docker: 
+`docker run --name rss-feed-db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d postgres:9.6`
+
+Save connection string to .env
+`echo -e export DATABASE_URL=`docker-machine ip rss-feed`:5432 > .env`
+
+Start docker postgres
+`docker-machine start rss-feed ; eval "$(docker-machine env rss-feed)" ; docker start rss-feed-db` after initial setup is done
+
+#### Compile & run app
+
 - Compile sources 
 `./build.sh`
 
