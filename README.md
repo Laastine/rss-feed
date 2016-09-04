@@ -30,7 +30,7 @@ Start postgres in docker:
 `docker run --name rss-feed-db -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d postgres:9.6`
 
 Save connection string to .env
-`echo -e export DATABASE_URL=`docker-machine ip rss-feed`:5432 > .env`
+`echo -e export DATABASE_URL=`docker-machine ip rss-feed` > .env`
 
 Start docker postgres
 `docker-machine start rss-feed ; eval "$(docker-machine env rss-feed)" ; docker start rss-feed-db` after initial setup is done
