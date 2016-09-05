@@ -10,7 +10,7 @@ open System.IO
 open System.Net
 open System.Text.RegularExpressions
 
-open db
+open Db
 
 let fetch (url: string) =
   try
@@ -45,8 +45,8 @@ let app : WebPart =
 [<EntryPoint>]
 let main argv =
     printfn "Starting Suave server on port 8083"
-    let ctx = db.getContext()
-    let feeds = db.getFeeds ctx
+    let ctx = Db.getContext()
+    let feeds = Db.getFeeds ctx
     printfn "%O" feeds
     startWebServer defaultConfig app
     0

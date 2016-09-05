@@ -49,11 +49,13 @@
   <ItemGroup>
     <Reference Include="../packages/Suave/lib/net40/Suave.dll" />
     <Reference Include="../packages/Suave.Experimental/lib/net40/Suave.Experimental.dll" />
-    <Reference Include="../packages/FSharp.Core/lib/net40/FSharp.Core.dll" />
+    <Reference Include="../packages/System.Json/lib/net40/System.Json.dll" />
     <Reference Include="../packages/FSharp.Core/lib/net40/FSharp.Core.dll" />
     <Reference Include="../packages/FSharp.Configuration/lib/net40/FSharp.Configuration.dll" />
     <Reference Include="../packages/Npgsql/lib/net40/Npgsql.dll" />
     <Reference Include="../packages/SQLProvider/lib/FSharp.Data.SqlProvider.dll" />
+    <Reference Include="../packages/Fleece/lib/NET40/Fleece.dll" />
+    <Compile Include="messages.fs" />
     <Compile Include="db.fs" />
     <Compile Include="view.fs" />
     <Compile Include="rssfeed.fs" />

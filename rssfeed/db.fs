@@ -1,4 +1,4 @@
-module db
+module Db
 
 open System
 open FSharp.Configuration
@@ -20,7 +20,7 @@ type Sql = SqlDataProvider<
 type DbContext = Sql.dataContext 
 type Feed = DbContext.``public.feedsEntity``
 
-let getContext() = Sql.GetDataContext configConnectionString
+let getContext() = Sql.GetDataContext configConnectionString  //Override default
 
 let getFeeds (ctx : DbContext) : Feed list = 
     ctx.Public.Feeds |> Seq.toList
