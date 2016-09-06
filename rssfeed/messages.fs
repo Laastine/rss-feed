@@ -1,4 +1,4 @@
-namespace JsonParser
+namespace Messages
 
 open System.IO
 open System.Text
@@ -12,3 +12,10 @@ type Feed = {
   Description: string
 }
 
+type Feed with
+  static member ToJSON (f: Feed) =
+    jobj [
+      "feedid" .= f.FeedId
+      "name" .= f.Name
+      "description" .= f.Description
+    ]
