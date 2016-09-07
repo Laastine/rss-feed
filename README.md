@@ -35,6 +35,9 @@ Save connection string to .env
 Start docker postgres
 `docker-machine start rss-feed ; eval "$(docker-machine env rss-feed)" ; docker start rss-feed-db` after initial setup is done
 
+Connect DB:
+```psql postgresql://`docker-machine ip rss-feed`:5432 -U postgres```
+
 #### Compile & run app
 
 - Compile sources 
