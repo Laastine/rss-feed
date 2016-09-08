@@ -54,7 +54,8 @@
     <Reference Include="../packages/FSharp.Configuration/lib/net40/FSharp.Configuration.dll" />
     <Reference Include="../packages/Npgsql/lib/net40/Npgsql.dll" />
     <Reference Include="../packages/SQLProvider/lib/FSharp.Data.SqlProvider.dll" />
-    <Reference Include="../packages/Fleece/lib/NET40/Fleece.dll" />
+    <Reference Include="../packages/Aether/lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Aether.dll" />
+    <Reference Include="../packages/Chiron/lib/net40/Chiron.dll" />
     <Compile Include="messages.fs" />
     <Compile Include="db.fs" />
     <Compile Include="view.fs" />

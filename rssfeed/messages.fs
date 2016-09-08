@@ -3,8 +3,8 @@ namespace Messages
 open System.IO
 open System.Text
 open System.Json
-open Fleece
-open Fleece.Operators
+open Chiron
+open Chiron.Operators
 
 type Feed = {
   FeedId: int
@@ -13,9 +13,7 @@ type Feed = {
 }
 
 type Feed with
-  static member ToJSON (f: Feed) =
-    jobj [
-      "feedid" .= f.FeedId
-      "name" .= f.Name
-      "description" .= f.Description
-    ]
+  static member ToJson (f: Feed) =
+    Json.write "feedid" f.FeedId
+    *> Json.write "name" f.Name
+    *> Json.write "description" f.Description
