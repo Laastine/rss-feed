@@ -3,6 +3,7 @@ module Db
 open System
 open FSharp.Configuration
 open FSharp.Data.Sql
+open Messages
 
 let getEnvVar (envVar: string) = 
   let d = System.Environment.GetEnvironmentVariables()
@@ -23,4 +24,5 @@ type Feed = DbContext.``public.feedsEntity``
 let getContext() = Sql.GetDataContext configConnectionString  //Override default
 
 let getFeeds (ctx : DbContext) : Feed list = 
-    ctx.Public.Feeds |> Seq.toList
+    ctx.Public.Feeds 
+    |> Seq.toList
