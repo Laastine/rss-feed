@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "babelify": "7.3.0",
+    "baconjs": "0.7.86",
     "react": "15.3.1",
-    "react-dom": "15.3.1"
+    "react-dom": "15.3.1",
+    "react-router": "2.8.1"
   },
   "devDependencies": {
     "babel": "6.5.2",
