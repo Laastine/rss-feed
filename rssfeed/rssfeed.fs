@@ -61,7 +61,7 @@ let app : WebPart =
     GET >=> choose
       [ 
         path "/" >=> file "rssfeed/web/public/index.html"
-        pathScan "%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename))
+        pathScan "/public/%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename))
         path "/api/feeds"
         >=> OK (Json.formatWith JsonFormattingOptions.Pretty feeds)
         >=> Writers.setMimeType "application/json; charset=utf-8"]
