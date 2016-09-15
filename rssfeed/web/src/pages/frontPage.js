@@ -1,6 +1,6 @@
 import React from 'react'
 
-class FrontPage extends React.Component {
+const FrontPage = React.createClass({
   render() {
     return (
       <div className="FrontPage">
@@ -8,6 +8,6 @@ class FrontPage extends React.Component {
       </div>
     )
   }
-}
+})
 
 export default FrontPage

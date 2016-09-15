@@ -6,24 +6,26 @@ import Routes from './routes'
 
 let listener
 
-class Main extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = this.props.state
-  }
+const Main = React.createClass({
+  getInitialState() {
+    return {
+      feeds: []
+    }
+  },
 
   componentDidMount() {
     listener = appState.changes().onValue((state) => this.setState(state))
-  }
+  },
 
   componenWillUnmount() {
     listener()
-  }
+  },
 
   render() {
-    return <Router {...this.props.renderProps}/>
+    const feedList = <ul>{this.state.feeds.map((f) => <li key={f.name}>{f.name} - {f.description}</li>)}</ul>
+    return <div>{feedList}</div>
   }
-}
+})
 
 window.onload = () => {
   browserHistory.listen(() => {
