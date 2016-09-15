@@ -22,7 +22,7 @@ const Main = React.createClass({
   },
 
   render() {
-    const feedList = <ul>{this.state.feeds.map((f) => <li key={f.name}>{f.name} - {f.description}</li>)}</ul>
+    const feedList = <ul>{this.state.feeds.map((f) => <li key={f.name}>{f.name} - {f.description} <a href={f.source}>Link</a></li>)}</ul>
     return <div>{feedList}</div>
   }
 })

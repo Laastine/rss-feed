@@ -46,7 +46,8 @@ let serializeFeed (x: Db.Feed) =
     Object <| Map.ofList [
           "feedid", Number (decimal x.Feedid); 
           "name", String x.Name;
-          "description", String x.Description ]
+          "description", String x.Description;
+          "source", String x.Source ]
 
 let serializeFeeds (fs: Db.Feed List) =
   Array [for f in fs -> serializeFeed f]

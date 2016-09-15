@@ -10,6 +10,7 @@ type Feed = {
   FeedId: int
   Name: string
   Description: string
+  Source: string
 }
 
 type Feed with
@@ -17,3 +18,4 @@ type Feed with
     Json.write "feedid" f.FeedId
     *> Json.write "name" f.Name
     *> Json.write "description" f.Description
+    *> Json.write "source" f.Source

@@ -3,7 +3,6 @@ module Db
 open System
 open FSharp.Configuration
 open FSharp.Data.Sql
-open Messages
 
 let getEnvVar (envVar: string) = 
   let d = System.Environment.GetEnvironmentVariables()
