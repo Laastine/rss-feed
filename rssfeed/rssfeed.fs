@@ -8,54 +8,55 @@ open Suave.Successful
 open Suave.Files
 open Suave.Filters
 open Suave.Json
-open System.Runtime.Serialization
 
 open Chiron
 
 open System.IO
 open System.Net
 open System.Json
+open System.Runtime.Serialization
 open System.Text
 
 open Messages
+open XmlReader
 open Db
 
-let fetch (url: string) =
-  try
-    let req = WebRequest.Create(url) :?> HttpWebRequest
-    req.UserAgent <- "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"
-    req.Timeout <- 3000
-    use response = req.GetResponse()
-    let content = response.ContentType
-    let isXML = RegularExpressions.Regex("xml").IsMatch(content)
-    match isXML with
-    | true -> use stream = response.GetResponseStream()
-              use reader = new StreamReader(stream)
-              let xml = reader.ReadToEnd()
-              Some xml
-    | false -> None
-  with
-  | _ -> None
-
-let exists (x : string option) =
+let exists (x: string option) =
     match x with
     | Some(x) -> printfn "%s" x
     | None -> printf "Not found"
 
-let serializeFeed (x: Db.Feed) =
+let alphabet = [ '0' .. '9' ] @ [ 'a' .. 'z' ] @ [ 'A' .. 'Z' ] |> Array.ofList
+let alphabetMap = Seq.zip alphabet [ 0 .. alphabet.Length - 1 ] |> dict
+
+let pathWithId pf f =
+  pathScan pf (fun id ctx -> async {
+    if Seq.forall (alphabetMap.ContainsKey) id then
+      return! f id ctx
+    else return None } )
+
+let serializeFeed (x: Db.Feed): Json =
     Object <| Map.ofList [
           "feedid", Number (decimal x.Feedid); 
           "name", String x.Name;
           "description", String x.Description;
           "source", String x.Source ]
 
-let serializeFeeds (fs: Db.Feed List) =
+let serializeFeeds (fs: Db.Feed List): Json =
   Array [for f in fs -> serializeFeed f]
 
-let feeds = 
+let feeds: WebPart = 
   Db.getContext()
   |> Db.getFeeds
   |> serializeFeeds
+  |> Json.formatWith JsonFormattingOptions.Pretty
+  |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
+
+let feedById (feedId: string) =
+  Db.getFeedById(Db.getContext(), feedId)
+  |> serializeFeed
+  |> Json.formatWith JsonFormattingOptions.Pretty
+  |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
 let app : WebPart =
   choose [
@@ -63,9 +64,9 @@ let app : WebPart =
       [ 
         path "/" >=> file "rssfeed/web/public/index.html"
         pathScan "/public/%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename))
-        path "/api/feeds"
-        >=> OK (Json.formatWith JsonFormattingOptions.Pretty feeds)
-        >=> Writers.setMimeType "application/json; charset=utf-8"]
+        path "/api/feeds" >=> feeds
+        pathWithId "/api/feedById/%s" feedById
+      ]
   ]
 
 [<EntryPoint>]

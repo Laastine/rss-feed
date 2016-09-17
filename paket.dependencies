@@ -3,9 +3,11 @@ nuget Chiron
 nuget FAKE
 nuget Fleece
 nuget FSharp.Configuration
-nuget FSharp.Data
+nuget FSharp.Core
+nuget FSharp.Data 2.2.5
 nuget Npgsql 2.2.7
 nuget SQLProvider 1.0.24
 nuget Suave
 nuget Suave.Experimental 1.1.3
-nuget System.Json
+nuget System.Core
+nuget System.Xml.Linq

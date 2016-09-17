@@ -25,3 +25,9 @@ let getContext() = Sql.GetDataContext configConnectionString  //Override default
 let getFeeds (ctx : DbContext) : Feed list = 
     ctx.Public.Feeds 
     |> Seq.toList
+
+let getFeedById (ctx: DbContext, feedId: string) : Feed =
+    ctx.Public.Feeds
+    |> Seq.toList
+    |> List.filter(fun (x) -> x.Feedid = System.Int32.Parse(feedId))
+    |> List.head
