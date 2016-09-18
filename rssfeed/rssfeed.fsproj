@@ -62,7 +62,6 @@
     <Compile Include="db.fs" />
     <Compile Include="messages.fs" />
     <Compile Include="structuralXml.fs"/>
-    <Compile Include="rssReader.fs" />
     <Compile Include="view.fs" />
     <Compile Include="rssfeed.fs" />
     <None Include="App.config" />

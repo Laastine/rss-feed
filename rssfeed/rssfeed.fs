@@ -11,6 +11,8 @@ open Suave.Json
 
 open Chiron
 
+open FSharp.Data
+
 open System.IO
 open System.Net
 open System.Json
@@ -18,7 +20,7 @@ open System.Runtime.Serialization
 open System.Text
 
 open Messages
-open RSSReader
+open StructuralXml
 open Db
 
 let exists (x: string option) =
@@ -45,6 +47,25 @@ let serializeFeed (x: Db.Feed): Json =
 let serializeFeeds (fs: Db.Feed List): Json =
   Array [for f in fs -> serializeFeed f]
 
+let serializeMessage (ms: string * string * string): Json =
+  let fst, snd, trd = ms
+  Object <| Map.ofList [
+    "title", String fst;
+    "link", String snd;
+    "description", String trd ]
+
+let serializeMessages (ms: List<string * string * string>): Json =
+  Array [for f in ms -> serializeMessage f]
+
+let loadRssFeed(url: string): List<string * string * string> =
+  let doc = StructuralXml.Load(url, LowerCase = true)
+  let (Messages.Rss(Channel(Title title, Link link, _, items))) = doc.Root
+  let items = seq {
+    for (Item(Title title, Link link, Description description)) in items do
+      yield title, link, description
+  }
+  Seq.toList items
+
 let feeds: WebPart =
   Db.getContext()
   |> Db.getFeeds
@@ -55,6 +76,12 @@ let feeds: WebPart =
 let feedById (feedId: string) =
   Db.getFeedById(Db.getContext(), feedId)
   |> serializeFeed
+  |> Json.formatWith JsonFormattingOptions.Pretty
+  |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
+
+let messagesByFeedId (feedId) =
+  loadRssFeed(feedId)
+  |> serializeMessages
   |> Json.formatWith JsonFormattingOptions.Pretty
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
