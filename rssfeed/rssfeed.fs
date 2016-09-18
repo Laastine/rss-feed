@@ -20,7 +20,7 @@ open System.Runtime.Serialization
 open System.Text
 
 open Messages
-open StructuralXml
+open XmlLoader
 open Db
 
 let exists (x: string option) =
@@ -58,7 +58,7 @@ let serializeMessages (ms: List<string * string * string>): Json =
   Array [for f in ms -> serializeMessage f]
 
 let loadRssFeed(url: string): List<string * string * string> =
-  let doc = StructuralXml.Load(url, LowerCase = true)
+  let doc = XmlLoader.Load(url, LowerCase = true)
   let (Messages.Rss(Channel(Title title, Link link, _, items))) = doc.Root
   let items = seq {
     for (Item(Title title, Link link, Description description)) in items do

@@ -1,4 +1,4 @@
-namespace StructuralXml
+namespace XmlLoader
 
 open System
 open System.Net
@@ -16,7 +16,7 @@ module InternalHelper =
     let methodInfo = typeof<Helper>.GetMethod("CastList").MakeGenericMethod [| objType |]
     methodInfo.Invoke(null, [| input |])
 
-type StructuralXml<'T> private (url:string, ns, lowerCase) =
+type XmlLoader<'T> private (url:string, ns, lowerCase) =
   let resolveName (str: string) =
     let lowerCaseStr = if lowerCase then str.ToLower() else str
     match ns with
@@ -57,4 +57,4 @@ type StructuralXml<'T> private (url:string, ns, lowerCase) =
   member x.Root = root
 
   static member Load<'T>(url, ?Namespace, ?LowerCase) =
-    new StructuralXml<'T>(url, Namespace, defaultArg LowerCase false)
+    new XmlLoader<'T>(url, Namespace, defaultArg LowerCase false)

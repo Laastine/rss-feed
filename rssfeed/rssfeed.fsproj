@@ -61,8 +61,7 @@
     <Reference Include="../packages/Chiron/lib/net40/Chiron.dll" />
     <Compile Include="db.fs" />
     <Compile Include="messages.fs" />
-    <Compile Include="structuralXml.fs"/>
-    <Compile Include="view.fs" />
+    <Compile Include="xmlLoader.fs"/>
     <Compile Include="rssfeed.fs" />
     <None Include="App.config" />
   </ItemGroup>
