@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="../packages/Suave/lib/net40/Suave.dll" />
@@ -57,10 +58,11 @@
     <Reference Include="../packages/Npgsql/lib/net40/Npgsql.dll" />
     <Reference Include="../packages/SQLProvider/lib/FSharp.Data.SqlProvider.dll" />
     <Reference Include="../packages/Aether/lib/portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1/Aether.dll" />
-    <Reference Include="../packages/Chiron/lib/net40/Chiron.dll" />    
+    <Reference Include="../packages/Chiron/lib/net40/Chiron.dll" />
     <Compile Include="db.fs" />
     <Compile Include="messages.fs" />
-    <Compile Include="xmlReader.fs" />
+    <Compile Include="structuralXml.fs"/>
+    <Compile Include="rssReader.fs" />
     <Compile Include="view.fs" />
     <Compile Include="rssfeed.fs" />
     <None Include="App.config" />

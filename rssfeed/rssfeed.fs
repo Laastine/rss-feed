@@ -18,7 +18,7 @@ open System.Runtime.Serialization
 open System.Text
 
 open Messages
-open XmlReader
+open RSSReader
 open Db
 
 let exists (x: string option) =
@@ -37,7 +37,7 @@ let pathWithId pf f =
 
 let serializeFeed (x: Db.Feed): Json =
     Object <| Map.ofList [
-          "feedid", Number (decimal x.Feedid); 
+          "feedid", Number (decimal x.Feedid);
           "name", String x.Name;
           "description", String x.Description;
           "source", String x.Source ]
@@ -45,7 +45,7 @@ let serializeFeed (x: Db.Feed): Json =
 let serializeFeeds (fs: Db.Feed List): Json =
   Array [for f in fs -> serializeFeed f]
 
-let feeds: WebPart = 
+let feeds: WebPart =
   Db.getContext()
   |> Db.getFeeds
   |> serializeFeeds
@@ -61,7 +61,7 @@ let feedById (feedId: string) =
 let app : WebPart =
   choose [
     GET >=> choose
-      [ 
+      [
         path "/" >=> file "rssfeed/web/public/index.html"
         pathScan "/public/%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename))
         path "/api/feeds" >=> feeds
