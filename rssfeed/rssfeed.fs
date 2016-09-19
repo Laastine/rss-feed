@@ -80,7 +80,8 @@ let feedById (feedId: string) =
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
 let messagesByFeedId (feedId) =
-  loadRssFeed(feedId)
+  let feed = Db.getFeedById(Db.getContext(), feedId)
+  loadRssFeed(feed.Source)
   |> serializeMessages
   |> Json.formatWith JsonFormattingOptions.Pretty
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
@@ -93,6 +94,7 @@ let app : WebPart =
         pathScan "/public/%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename))
         path "/api/feeds" >=> feeds
         pathWithId "/api/feedById/%s" feedById
+        pathWithId "/api/feedContentById/%s" messagesByFeedId
       ]
   ]
 
