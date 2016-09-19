@@ -9,3 +9,4 @@ rssfeed/web/public/style.css
 .paket/paket.exe
 .env
 rssfeed/web/.idea
+.vscode/
