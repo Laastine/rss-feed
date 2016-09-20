@@ -7,12 +7,6 @@ import Routes from './routes'
 let listener
 
 const Main = React.createClass({
-  getInitialState() {
-    return {
-      feeds: []
-    }
-  },
-
   componentDidMount() {
     listener = appState.changes().onValue((state) => this.setState(state))
   },
@@ -22,16 +16,10 @@ const Main = React.createClass({
   },
 
   render() {
-    const feedList = <ul>{this.state.feeds.map((f) => <li key={f.name}>{f.name} - {f.description} <a href={f.source}>Link</a></li>)}</ul>
-    return <div>{feedList}</div>
+    return <Router history={browserHistory}>
+      {Routes}
+    </Router>
   }
 })
 
-window.onload = () => {
-  browserHistory.listen(() => {
-  })
-
-  match({routes: Routes, history: browserHistory}, (error, redirectLocation, renderProps) => {
-    render(<Main renderProps={renderProps}></Main>, document.getElementById('content'))
-  })
-}
+render(<Main/>, document.getElementById('content'))

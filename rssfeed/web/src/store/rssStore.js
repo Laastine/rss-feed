@@ -37,6 +37,8 @@ function rootReducer(previousState, action) {
     case 'LOAD_FEEDS_SUCCESS':
       state.feeds = action.data
       break
+    case 'LOAD_FEED_CONTENT':
+      state.feeds = action.data
   }
   console.log(action.type, state)     // eslint-disable-line
 
