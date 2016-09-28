@@ -1,13 +1,23 @@
 import React from 'react'
 
-const FrontPage = React.createClass({
+const FeedPage = React.createClass({
+  getInitialState() {
+    return {
+      singleFeed: []
+    }
+  },
+
   render() {
+    const feedList = <ul>{this.state.singleFeed.map((f) =>
+      <li key={f.title}>{f.link} - {f.description}</li>
+    )}</ul>
     return (
-      <div className="FrontPage">
+      <div className="FeedPage">
         Feed page
+        {feedList}
       </div>
     )
   }
 })
 
-export default FrontPage
+export default FeedPage

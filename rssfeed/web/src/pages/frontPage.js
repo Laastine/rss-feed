@@ -1,26 +1,13 @@
 import React from 'react'
 import {Link} from 'react-router'
-import {appState} from '../store/rssStore'
 
-let listener
-
-const App = React.createClass({
-  getInitialState() {
-    return {
-      feeds: []
-    }
-  },
-
-  componentDidMount() {
-    listener = appState.changes().onValue((state) => this.setState(state))
-  },
-
-  componenWillUnmount() {
-    listener()
+const FrontPage = React.createClass({
+  contextTypes: {
+    appState: React.PropTypes.object
   },
 
   render() {
-    const feedList = <ul>{this.state.feeds.map((f) =>
+    const feedList = <ul>{this.context.appState.feeds.map((f) =>
       <li key={f.name}>{f.name} - {f.description} <Link to={`/feed/${f.feedid}`}>Link</Link></li>
     )}</ul>
     return (
@@ -32,4 +19,4 @@ const App = React.createClass({
   }
 })
 
-export default App
+export default FrontPage

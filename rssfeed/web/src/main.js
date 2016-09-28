@@ -1,25 +1,49 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {Router, match, browserHistory} from 'react-router'
+import {browserHistory, Route, RouterContext, Router} from 'react-router'
+import FrontPage from './pages/frontPage'
+import FeedPage from './pages/feedPage'
 import {appState} from './store/rssStore'
-import Routes from './routes'
+import AppPage from './pages/appPage'
+import {getFeedById, getFeeds} from './api/rssApi'
 
-let listener
+const routes =
+  <Route component={AppPage}>
+    <Route path="/"
+           onEnter={() => appState.dispatch(getFeeds())}
+           component={FrontPage}/>
+    <Route path="/feed/:feedId"
+           onEnter={(nextState) => appState.dispatch(getFeedById(nextState.params.feedId))}
+           component={FeedPage}/>
+  </Route>
 
 const Main = React.createClass({
-  componentDidMount() {
-    listener = appState.changes().onValue((state) => this.setState(state))
+  getInitialState() {
+    return {
+      feeds: []
+    }
   },
 
-  componenWillUnmount() {
-    listener()
+  childContextTypes: {
+    appState: React.PropTypes.object
+  },
+
+  componentDidMount() {
+    appState.changes().onValue((state) => {
+      this.setState(state)
+    })
+  },
+
+  getChildContext() {
+    return {appState: this.state}
   },
 
   render() {
     return <Router history={browserHistory}>
-      {Routes}
+      {routes}
     </Router>
   }
 })
+
 
 render(<Main/>, document.getElementById('content'))
