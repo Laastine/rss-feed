@@ -40,7 +40,7 @@
     "build-js": "browserify src/main.js -o public/bundle.js",
     "watch-js": "watchify --debug src/main.js -o public/bundle.js -v",
     "build": "mkdir -p dist && npm run build-js && npm run build-css",
-    "build-min": "npm run build && uglifyjs --compress -o public/bundle.js public/bundle.js",
+    "build-min": "npm run build && uglifyjs --compress --mangle -o public/bundle.js public/bundle.js",
     "watch": "npm run watch-js & npm run watch-css"
   }
 }
