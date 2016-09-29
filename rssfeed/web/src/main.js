@@ -20,7 +20,8 @@ const routes =
 const Main = React.createClass({
   getInitialState() {
     return {
-      feeds: []
+      feeds: [],
+      singleFeed: null
     }
   },
 
