@@ -21,7 +21,7 @@ const Main = React.createClass({
   getInitialState() {
     return {
       feeds: [],
-      singleFeed: null
+      singleFeed: []
     }
   },
 

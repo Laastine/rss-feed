@@ -2,15 +2,14 @@ import React from 'react'
 import {Link} from 'react-router'
 
 const FeedPage = React.createClass({
-  getInitialState() {
-    return {
-      singleFeed: []
-    }
+  contextTypes: {
+    appState: React.PropTypes.object
   },
 
   render() {
-    const feedList = <ul>{this.state.singleFeed.map((f) =>
-      <li key={f.title}>{f.link} - {f.description}</li>
+    console.log('FOO', this.context.appState.singleFeed)
+    const feedList = <ul>{this.context.appState.singleFeed.map((f) =>
+      <li key={f.title}><a href={f.link}>{f.title}</a><div className="feed-element">{f.description}</div></li>
     )}</ul>
     return (
       <div className="FeedPage">

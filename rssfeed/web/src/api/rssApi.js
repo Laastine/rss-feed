@@ -12,4 +12,5 @@ export const checkStatus = (response) => {
 
 export const getFeeds = () => ({type: 'LOAD_FEEDS', promise: serverApi.get('/api/feeds').then(checkStatus)})
 
-export const getFeedById = (feedId) => ({type: 'LOAD_FEED_CONTENT', promise: serverApi.get(`/api/feedContentById/${feedId}`)})
+export const getFeedById = (feedId) =>
+  ({type: 'LOAD_FEED_CONTENT', promise: serverApi.get(`/api/feedContentById/${feedId}`).then(checkStatus)})
