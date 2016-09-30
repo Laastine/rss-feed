@@ -5,7 +5,7 @@ build/
 packages/
 rssfeed/web/node_modules/
 rssfeed/web/public/bundle.js
-rssfeed/web/public/style.css
+rssfeed/web/public/styles.css
 .paket/paket.exe
 .env
 rssfeed/web/.idea
