@@ -1,0 +1,44 @@
+html, body {
+  height: 100%;
+}
+
+#content {
+  height: 100%;
+}
+
+.routerView {
+  height: 100%;
+}
+
+.frontPage {
+  height: 100%;
+
+}
+
+.header {
+  font-size: 30px;
+  font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+}
+
+.header-link {
+  text-decoration: none;
+}
+
+.main {
+  font-size: 20px;
+  height: 100px;
+}
+
+.feedlist-container {
+  border: 2px solid #777;
+  border-radius: 4px;
+  width: 400px;
+  height: 100%;
+}
+
+.feedlist-element {
+  display: block;
+  font-size: 16px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+}

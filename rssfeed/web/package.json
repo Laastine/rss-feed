@@ -35,7 +35,7 @@
     ]
   },
   "scripts": {
-    "build-css": "mkdir -p public && cat styles/*.css > public/style.css",
+    "build-css": "mkdir -p public && cat styles/*.css > public/styles.css",
     "watch-css": "node_modules/.bin/watch \"npm run build-css\" styles",
     "build-js": "browserify src/main.js -o public/bundle.js",
     "watch-js": "watchify --debug src/main.js -o public/bundle.js -v",

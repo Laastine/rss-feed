@@ -7,12 +7,16 @@ const FrontPage = React.createClass({
   },
 
   render() {
-    const feedList = <ul>{this.context.appState.feeds.map((f) =>
-      <li key={f.name}>{f.name} - {f.description} <Link to={`/feed/${f.feedid}`}>Link</Link></li>
+    const feedList = <ul className="feedlist-container">{this.context.appState.feeds.map((f) =>
+      <li className="feedlist-element" key={f.name}>{f.name} - {f.description} <Link to={`/feed/${f.feedid}`}>Link</Link></li>
     )}</ul>
+
     return (
       <div className="frontPage">
-        Etusivu
+        <div className="header">
+          <Link to="/" className="header-link">Home</Link>
+          <div className="frontPage">Frontpage</div>
+        </div>
         {feedList}
       </div>
     )

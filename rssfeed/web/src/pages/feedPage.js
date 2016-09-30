@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 const FeedPage = React.createClass({
   getInitialState() {
@@ -13,7 +14,10 @@ const FeedPage = React.createClass({
     )}</ul>
     return (
       <div className="FeedPage">
-        Feed page
+        <div className="header">
+          <Link to="/" className="header-link">Home</Link>
+          Feed page
+        </div>
         {feedList}
       </div>
     )
