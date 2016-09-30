@@ -10,3 +10,4 @@ rssfeed/web/public/style.css
 .env
 rssfeed/web/.idea
 .vscode/
+*.xml
