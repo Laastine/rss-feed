@@ -1,4 +1,4 @@
-module rssFeed
+module RssFeed
 
 open Suave
 open Suave.Filters
@@ -86,16 +86,24 @@ let messagesByFeedId (feedId) =
   |> Json.formatWith JsonFormattingOptions.Pretty
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
+let addNewFeed (res: List<string * string option>) =
+  let (data, _) = res.Head
+  let source = Json.parse data
+  data
+
 let app : WebPart =
   choose [
     GET >=> choose
       [
         path "/" >=> file "rssfeed/web/public/index.html"
-        pathScan "/public/%s" (fun (filename) -> file (sprintf "rssfeed/web/public/%s" filename))
+        pathScan "/public/%s" (fun filename -> file (sprintf "rssfeed/web/public/%s" filename))
         path "/api/feeds" >=> feeds
         pathWithId "/api/feedById/%s" feedById
         pathWithId "/api/feedContentById/%s" messagesByFeedId
       ]
+    POST >=> choose
+      [ path "/newFeed" >=> request (fun r -> OK (addNewFeed r.form)) ]
+    RequestErrors.NOT_FOUND "Found no handlers"
   ]
 
 [<EntryPoint>]
