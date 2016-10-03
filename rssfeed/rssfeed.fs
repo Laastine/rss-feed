@@ -89,7 +89,10 @@ let messagesByFeedId (feedId) =
 let addNewFeed (res: List<string * string option>) =
   let (data, _) = res.Head
   let source = Json.parse data
-  data
+  printfn "%A" source
+  Json.formatWith JsonFormattingOptions.Pretty source
+  |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
+
 
 let app : WebPart =
   choose [
@@ -102,7 +105,7 @@ let app : WebPart =
         pathWithId "/api/feedContentById/%s" messagesByFeedId
       ]
     POST >=> choose
-      [ path "/newFeed" >=> request (fun r -> OK (addNewFeed r.form)) ]
+      [ path "/api/newFeed" >=> request (fun r -> addNewFeed r.form) ]
     RequestErrors.NOT_FOUND "Found no handlers"
   ]
 

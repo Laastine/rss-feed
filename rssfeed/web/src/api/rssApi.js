@@ -14,3 +14,6 @@ export const getFeeds = () => ({type: 'LOAD_FEEDS', promise: serverApi.get('/api
 
 export const getFeedById = (feedId) =>
   ({type: 'LOAD_FEED_CONTENT', promise: serverApi.get(`/api/feedContentById/${feedId}`).then(checkStatus)})
+
+export const postNewFeed = (source) =>
+  serverApi.post('/api/newFeed', {source})
