@@ -4,7 +4,7 @@ open System
 open FSharp.Configuration
 open FSharp.Data.Sql
 
-let getEnvVar (envVar: string) = 
+let getEnvVar (envVar: string) =
   let d = System.Environment.GetEnvironmentVariables()
   d.[envVar] :?> string
 
@@ -17,13 +17,13 @@ type Sql = SqlDataProvider<
               DatabaseVendor          = Common.DatabaseProviderTypes.POSTGRESQL,
               CaseSensitivityChange   = Common.CaseSensitivityChange.ORIGINAL >
 
-type DbContext = Sql.dataContext 
+type DbContext = Sql.dataContext
 type Feed = DbContext.``public.feedsEntity``
 
 let getContext() = Sql.GetDataContext configConnectionString  //Override default
 
-let getFeeds (ctx : DbContext) : Feed list = 
-    ctx.Public.Feeds 
+let getFeeds (ctx : DbContext) : Feed list =
+    ctx.Public.Feeds
     |> Seq.toList
 
 let getFeedById (ctx: DbContext, feedId: string) : Feed =
@@ -31,3 +31,11 @@ let getFeedById (ctx: DbContext, feedId: string) : Feed =
     |> Seq.toList
     |> List.filter(fun (x) -> x.Feedid = System.Int32.Parse(feedId))
     |> List.head
+
+let insertNewFeed (name: string, description: string, source: string) (ctx: DbContext): Feed =
+    let f = ctx.Public.Feeds.Create()
+    f.Name <- name
+    f.Description <- description
+    f.Source <- source
+    ctx.SubmitUpdates()
+    f
