@@ -66,6 +66,11 @@ let loadRssFeed(url: string): List<string * string * string> =
   }
   Seq.toList items
 
+let loadRssName(url: string): string =
+  let doc = XmlLoader.Load(url, LowerCase = true)
+  let (Messages.Rss(Channel(Title title, Link link, _, items))) = doc.Root
+  title
+
 let feeds: WebPart =
   Db.getContext()
   |> Db.getFeeds
@@ -86,13 +91,12 @@ let messagesByFeedId (feedId) =
   |> Json.formatWith JsonFormattingOptions.Pretty
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
-let addNewFeed (res: List<string * string option>) =
-  let (data, _) = res.Head
-  let source = Json.parse data
-  printfn "%A" source
-  Json.formatWith JsonFormattingOptions.Pretty source
-  |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
-
+let getResourceFromReq<'a> (req : HttpRequest) =
+  let getString rawForm = System.Text.Encoding.UTF8.GetString(rawForm)
+  let data = req.rawForm |> getString |> Json.parse |> Json.deserialize
+  let feedName = loadRssName(data.Source)
+  Db.insertNewFeed(feedName, "", data.Source)
+  """{"status": "ok"}""" |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
 let app : WebPart =
   choose [
@@ -105,7 +109,7 @@ let app : WebPart =
         pathWithId "/api/feedContentById/%s" messagesByFeedId
       ]
     POST >=> choose
-      [ path "/api/newFeed" >=> request (fun r -> addNewFeed r.form) ]
+      [ path "/api/newFeed" >=> request (getResourceFromReq) ]
     RequestErrors.NOT_FOUND "Found no handlers"
   ]
 
