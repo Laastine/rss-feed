@@ -42,12 +42,11 @@ let getFeedById (ctx: DbContext, feedId: string) : Feed =
     |> List.filter(fun (x) -> x.Feedid = System.Int32.Parse(feedId))
     |> List.head
 
-let insertNewFeed (name: string, description: string, source: string) (ctx: DbContext): Feed =
+let insertNewFeed (name: string, source: string) (ctx: DbContext): Feed =
     let f = ctx.Public.Feeds.Create()
     let id = Guid.NewGuid().ToString("N")
     f.Feedid <- stringToInt32 id
     f.Name <- name
-    f.Description <- description
     f.Source <- source
     ctx.SubmitUpdates()
     f
