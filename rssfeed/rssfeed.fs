@@ -95,8 +95,10 @@ let getResourceFromReq<'a> (req : HttpRequest) =
   let getString rawForm = System.Text.Encoding.UTF8.GetString(rawForm)
   let data = req.rawForm |> getString |> Json.parse |> Json.deserialize
   let feedName = loadRssName(data.Source)
-  Db.insertNewFeed(feedName, "", data.Source)
-  """{"status": "ok"}""" |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
+  Db.insertNewFeed(feedName, data.Source) (Db.getContext())
+  |> serializeFeed
+  |> Json.formatWith JsonFormattingOptions.Pretty
+  |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
 let app : WebPart =
   choose [

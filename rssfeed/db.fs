@@ -4,6 +4,16 @@ open System
 open FSharp.Configuration
 open FSharp.Data.Sql
 
+let (|Int|_|) str =
+  match System.Int32.TryParse(str) with
+  | (true,int) -> Some(int)
+  | _ -> None
+
+let stringToInt32 str =
+  match str with
+  | Int i -> i
+  | _ -> 0
+
 let getEnvVar (envVar: string) =
   let d = System.Environment.GetEnvironmentVariables()
   d.[envVar] :?> string
@@ -34,6 +44,8 @@ let getFeedById (ctx: DbContext, feedId: string) : Feed =
 
 let insertNewFeed (name: string, description: string, source: string) (ctx: DbContext): Feed =
     let f = ctx.Public.Feeds.Create()
+    let id = Guid.NewGuid().ToString("N")
+    f.Feedid <- stringToInt32 id
     f.Name <- name
     f.Description <- description
     f.Source <- source
