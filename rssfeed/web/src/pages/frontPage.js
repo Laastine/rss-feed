@@ -15,8 +15,8 @@ const FrontPage = React.createClass({
     }
 
     const feedList = <ul className="feedlist-container">{this.context.appState.feeds.map((f) =>
-      <li className="feedlist-element" key={f.name}>{f.name}<Link
-        to={`/feed/${f.feedid}`}>Link</Link></li>
+      <li className="feedlist-element" key={f.name}><Link
+        to={`/feed/${f.feedid}`}>{f.name}</Link></li>
     )}</ul>
 
     const insertFeed = <div className="insertFeed-container">

@@ -14,8 +14,9 @@ type FeedSource =
 
 type Title = Title of string
 type Link = Link of string
+type Description = Description of string
 
-type Item = Item of Title * Link
-type Channel = Channel of Title * Link * list<Item>
+type Item = Item of Title * Link * Description
+type Channel = Channel of Title * Link * Description * list<Item>
 
 type Rss = Rss of Channel

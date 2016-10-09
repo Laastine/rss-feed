@@ -46,27 +46,28 @@ let serializeFeed (x: Db.Feed): Json =
 let serializeFeeds (fs: Db.Feed List): Json =
   Array [for f in fs -> serializeFeed f]
 
-let serializeMessage (ms: string * string): Json =
-  let (title, link) = ms
+let serializeMessage (ms: string * string * string): Json =
+  let fst, snd, trd = ms
   Object <| Map.ofList [
-    "title", String title;
-    "link", String link ]
+    "title", String fst;
+    "link", String snd;
+    "description", String trd ]
 
-let serializeMessages (ms: List<string * string>): Json =
+let serializeMessages (ms: List<string * string * string>): Json =
   Array [for f in ms -> serializeMessage f]
 
-let loadRssFeed(url: string): List<string * string> =
+let loadRssFeed(url: string): List<string * string * string> =
   let doc = XmlLoader.Load(url, LowerCase = true)
-  let (Messages.Rss(Channel(Title title, Link link, items))) = doc.Root
+  let (Messages.Rss(Channel(Title title, Link link, Description description, items))) = doc.Root
   let items = seq {
-    for (Item(Title title, Link link)) in items do
-      yield title, link
+    for (Item(Title title, Link link, Description description)) in items do
+      yield title, link, description
   }
   Seq.toList items
 
 let loadRssName(url: string): string =
   let doc = XmlLoader.Load(url, LowerCase = true)
-  let (Messages.Rss(Channel(Title title, Link link, items))) = doc.Root
+  let (Messages.Rss(Channel(Title title, Link link, Description description, items))) = doc.Root
   title
 
 let feeds: WebPart =
