@@ -70,7 +70,7 @@ let loadRssName(url: string): string =
   let (Messages.Rss(Channel(Title title, Link link, Description description, items))) = doc.Root
   title
 
-let feeds: WebPart =
+let feeds() =
   Db.getContext()
   |> Db.getFeeds
   |> serializeFeeds
@@ -105,7 +105,7 @@ let app : WebPart =
       [
         path "/" >=> file "rssfeed/web/public/index.html"
         pathScan "/public/%s" (fun filename -> file (sprintf "rssfeed/web/public/%s" filename))
-        path "/api/feeds" >=> feeds
+        path "/api/feeds" >=> request (fun req -> feeds())
         pathWithId "/api/feedById/%s" feedById
         pathWithId "/api/feedContentById/%s" messagesByFeedId
       ]
