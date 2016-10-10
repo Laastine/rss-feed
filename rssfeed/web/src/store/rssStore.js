@@ -1,4 +1,5 @@
-import Bacon from "baconjs"
+import Bacon from 'baconjs'
+import {append} from 'ramda'
 
 const initial = {}
 
@@ -39,6 +40,13 @@ function rootReducer(previousState, action) {
       break
     case 'LOAD_FEED_CONTENT_SUCCESS':
       state.singleFeed = action.data
+      break
+    case 'ADD_FEED_SUCCESS':
+      state.feeds = append(action.data, state.feeds)
+      break
+    case 'ADD_FEED_FAILURE':
+      alert(`Couldn't add feed`)
+      break
   }
   console.log(action.type, state)     // eslint-disable-line
 

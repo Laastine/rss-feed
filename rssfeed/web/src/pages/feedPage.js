@@ -7,7 +7,6 @@ const FeedPage = React.createClass({
   },
 
   render() {
-    console.log('FOO', this.context.appState.singleFeed)
     const feedList = <ul>{this.context.appState.singleFeed.map((f) =>
       <li key={f.title}><a href={f.link}>{f.title}</a><div className="feed-element">{f.description}</div></li>
     )}</ul>

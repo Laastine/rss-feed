@@ -10,6 +10,7 @@
     "axios": "0.14.0",
     "babelify": "7.3.0",
     "baconjs": "0.7.87",
+    "ramda": "0.22.1",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-router": "2.8.1"

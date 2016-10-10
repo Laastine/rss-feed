@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {appState} from '../store/rssStore'
 import {postNewFeed} from '../api/rssApi'
 
 const FrontPage = React.createClass({
@@ -10,7 +11,7 @@ const FrontPage = React.createClass({
   render() {
     const handleKeyDown = (e) => {
       if (e.keyCode === 13) { //Enter
-        postNewFeed(e.target.value)
+        appState.dispatch(postNewFeed(e.target.value))
       }
     }
 
