@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {appState} from '../store/rssStore'
-import {postNewFeed} from '../api/rssApi'
+import {postNewFeed, deleteNewFeed} from '../api/rssApi'
 
 const FrontPage = React.createClass({
   contextTypes: {
@@ -15,9 +15,13 @@ const FrontPage = React.createClass({
       }
     }
 
+    const removeFeed = (feedName) => {
+      appState.dispatch(deleteNewFeed(feedName))
+    }
+
     const feedList = <ul className="feedlist-container">{this.context.appState.feeds.map((f) =>
       <li className="feedlist-element" key={f.name}><Link
-        to={`/feed/${f.feedid}`}>{f.name}</Link></li>
+        to={`/feed/${f.feedid}`}>{f.name}</Link><div className="feedlist-element-remove" onClick={() => removeFeed(f.name)}>X</div></li>
     )}</ul>
 
     const insertFeed = <div className="insertFeed-container">

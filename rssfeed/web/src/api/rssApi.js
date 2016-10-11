@@ -17,3 +17,6 @@ export const getFeedById = (feedId) =>
 
 export const postNewFeed = (source) =>
   ({type: 'ADD_FEED', promise: serverApi.post('/api/newFeed', {source}).then(checkStatus)})
+
+export const deleteNewFeed = (name) =>
+  ({type: 'DELETE_FEED', promise: serverApi.post('/api/deleteFeed', {name}).then(checkStatus)})

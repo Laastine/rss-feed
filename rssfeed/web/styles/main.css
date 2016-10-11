@@ -42,3 +42,7 @@ html, body {
   padding-bottom: 3px;
   padding-top: 3px;
 }
+
+.feedlist-element-remove {
+  cursor: pointer;
+}
