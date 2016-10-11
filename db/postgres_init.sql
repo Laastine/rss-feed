@@ -5,8 +5,8 @@ CREATE DATABASE "rssfeed";
 CREATE TABLE "feeds"(
     "feedid" SERIAL PRIMARY KEY NOT NULL,
     "name" varchar(120) NULL,
-    "description" varchar(4000) NULL);
+    "source" varchar(4000) NULL);
 
-INSERT INTO "feeds" ("feedid", "name", "description") VALUES (1, 'RockPaperShotgun', 'Duke Nukem is BACK!');
-INSERT INTO "feeds" ("feedid", "name", "description") VALUES (2, 'Code blog', 'Learning to code');
-INSERT INTO "feeds" ("feedid", "name", "description") VALUES (3, 'Image blog', 'See pictures');
+INSERT INTO "feeds" ("feedid", "name", "source") VALUES (1, 'RockPaperShotgun', 'http://feeds.feedburner.com/RockPaperShotgun');
+INSERT INTO "feeds" ("feedid", "name", "source") VALUES (2, 'Code of Honor', 'http://www.codeofhonor.com/blog/feed');
+INSERT INTO "feeds" ("feedid", "name", "source") VALUES (3, 'Lautapeliopas', 'http://www.lautapeliopas.fi/feed/');
