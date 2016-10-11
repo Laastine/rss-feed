@@ -37,11 +37,23 @@ let getFeedById (ctx: DbContext, feedId: string) : Feed =
     |> List.filter(fun (x) -> x.Feedid = System.Int32.Parse(feedId))
     |> List.head
 
+let getFeedByName (ctx: DbContext, feedName: string) : Feed =
+    ctx.Public.Feeds
+    |> Seq.toList
+    |> List.filter(fun (x) -> x.Name = feedName)
+    |> List.head
+
 let insertNewFeed (name: string, source: string) (ctx: DbContext): Feed =
-    let f = ctx.Public.Feeds.Create()
-    let id = getHighestFeedId(ctx) + 1
-    f.Feedid <- id
-    f.Name <- name
-    f.Source <- source
-    ctx.SubmitUpdates()
-    f
+  let f = ctx.Public.Feeds.Create()
+  let id = getHighestFeedId(ctx) + 1
+  f.Feedid <- id
+  f.Name <- name
+  f.Source <- source
+  ctx.SubmitUpdates()
+  f
+
+let deleteFeedByName (feedName: string) (ctx: DbContext): Feed =
+  let f = getFeedByName(ctx, feedName)
+  f.Delete()
+  ctx.SubmitUpdates()
+  f

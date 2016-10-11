@@ -90,11 +90,19 @@ let messagesByFeedId (feedId) =
   |> Json.formatWith JsonFormattingOptions.Pretty
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
 
-let getResourceFromReq<'a> (req : HttpRequest) =
+let insertFeed<'a> (req : HttpRequest) =
   let getString rawForm = System.Text.Encoding.UTF8.GetString(rawForm)
-  let data = req.rawForm |> getString |> Json.parse |> Json.deserialize
+  let data: FeedSource  = req.rawForm |> getString |> Json.parse |> Json.deserialize
   let feedName = loadRssName(data.Source)
   Db.insertNewFeed(feedName, data.Source) (Db.getContext())
+  |> serializeFeed
+  |> Json.formatWith JsonFormattingOptions.Pretty
+  |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
+
+let deleteFeed<'b> (req: HttpRequest) =
+  let getString rawForm = System.Text.Encoding.UTF8.GetString(rawForm)
+  let data: FeedName = req.rawForm |> getString |> Json.parse |> Json.deserialize
+  Db.deleteFeedByName(data.Name) (Db.getContext())
   |> serializeFeed
   |> Json.formatWith JsonFormattingOptions.Pretty
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
@@ -110,7 +118,8 @@ let app : WebPart =
         pathWithId "/api/feedContentById/%s" messagesByFeedId
       ]
     POST >=> choose
-      [ path "/api/newFeed" >=> request (getResourceFromReq) ]
+      [ path "/api/newFeed" >=> request (insertFeed)
+        path "/api/deleteFeed" >=> request (deleteFeed) ]
     RequestErrors.NOT_FOUND "Found no handlers"
   ]
 
