@@ -23,30 +23,28 @@ type Feed = DbContext.``public.feedsEntity``
 let getContext() = Sql.GetDataContext configConnectionString  //Override default
 
 let getFeeds (ctx : DbContext) : Feed list =
-    ctx.Public.Feeds
-    |> Seq.toList
+  ctx.Public.Feeds |> Seq.toList
 
 let getHighestFeedId (ctx: DbContext): int =
-  getFeeds(ctx)
-  |> List.map (fun x -> x.Feedid)
-  |> List.max
+  let feedList = getFeeds(ctx) |> List.map (fun x -> x.Feedid)
+  if feedList.Length > 0 then List.max feedList + 1 else 0
 
 let getFeedById (ctx: DbContext, feedId: string) : Feed =
-    ctx.Public.Feeds
-    |> Seq.toList
-    |> List.filter(fun (x) -> x.Feedid = System.Int32.Parse(feedId))
-    |> List.head
+  ctx.Public.Feeds
+  |> Seq.toList
+  |> List.filter(fun (x) -> x.Feedid = System.Int32.Parse(feedId))
+  |> List.head
 
 let getFeedByName (ctx: DbContext, feedName: string) : Feed =
-    ctx.Public.Feeds
-    |> Seq.toList
-    |> List.filter(fun (x) -> x.Name = feedName)
-    |> List.head
+  ctx.Public.Feeds
+  |> Seq.toList
+  |> List.filter(fun (x) -> x.Name = feedName)
+  |> List.head
 
 let insertNewFeed (name: string, source: string) (ctx: DbContext): Feed =
   let f = ctx.Public.Feeds.Create()
-  let id = getHighestFeedId(ctx) + 1
-  f.Feedid <- id
+  let id() = getHighestFeedId(ctx)
+  f.Feedid <- id()
   f.Name <- name
   f.Source <- source
   ctx.SubmitUpdates()
