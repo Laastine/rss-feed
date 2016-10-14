@@ -61,6 +61,7 @@
     <Reference Include="../packages/Chiron/lib/net40/Chiron.dll" />
     <Reference Include="../packages/FParsec/lib/net40-client/FParsec.dll" />
     <Compile Include="db.fs" />
+    <Compile Include="logger.fs" />
     <Compile Include="messages.fs" />
     <Compile Include="xmlLoader.fs"/>
     <Compile Include="rssfeed.fs" />

@@ -8,6 +8,7 @@ open Suave.Successful
 open Suave.Files
 open Suave.Filters
 open Suave.Json
+open Suave.Logging
 
 open Chiron
 
@@ -22,6 +23,7 @@ open System.Text
 open Messages
 open XmlLoader
 open Db
+open Logger
 
 let exists (x: string option) =
     match x with
@@ -123,8 +125,9 @@ let app : WebPart =
     RequestErrors.NOT_FOUND "Found no handlers"
   ]
 
+let customConfig = { defaultConfig with logger = new ServerLogger() }
+
 [<EntryPoint>]
 let main argv =
-    printfn "Starting Suave server on port 8083"
-    startWebServer defaultConfig app
-    0
+  startWebServer customConfig app
+  0

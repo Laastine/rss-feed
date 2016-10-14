@@ -4,7 +4,7 @@ NUGET
     Chiron (6.2.1)
       Aether (>= 8.0.2 < 9.0)
       FParsec (>= 1.0 < 2.0)
-    FAKE (4.41.1)
+    FAKE (4.41.6)
     Fleece (0.4)
       FSharpPlus (>= 0.0.4)
       ReadOnlyCollectionExtensions (>= 1.2)
