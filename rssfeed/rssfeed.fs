@@ -114,6 +114,7 @@ let app : WebPart =
     GET >=> choose
       [
         path "/" >=> file "rssfeed/web/public/index.html"
+        pathScan "/feed/%s" (fun _ -> file "rssfeed/web/public/index.html")
         pathScan "/public/%s" (fun filename -> file (sprintf "rssfeed/web/public/%s" filename))
         path "/api/feeds" >=> request (fun req -> feeds())
         pathWithId "/api/feedById/%s" feedById
