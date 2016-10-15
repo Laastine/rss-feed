@@ -7,14 +7,14 @@ const FeedPage = React.createClass({
   },
 
   render() {
-    const feedList = <ul>{this.context.appState.singleFeed.map((f) =>
+    const {singleFeed} = this.context.appState
+    const feedList = singleFeed.length > 0 ? <ul>{singleFeed.map((f) =>
       <li key={f.title}><a href={f.link}>{f.title}</a><div className="feed-element">{f.description}</div></li>
-    )}</ul>
+    )}</ul> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
     return (
       <div className="FeedPage">
-        <div className="header">
+        <div>
           <Link to="/" className="header-link">Home</Link>
-          Feed page
         </div>
         {feedList}
       </div>

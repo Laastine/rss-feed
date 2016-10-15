@@ -1,5 +1,7 @@
 html, body {
   height: 100%;
+  margin: 0px;
+  overflow: hidden;
 }
 
 #content {
@@ -11,13 +13,7 @@ html, body {
 }
 
 .frontPage {
-  height: 100%;
-
-}
-
-.header {
-  font-size: 30px;
-  font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+  height: calc(100% - 100px * 2);
 }
 
 .header-link {
@@ -33,7 +29,8 @@ html, body {
   border: 2px solid #777;
   border-radius: 4px;
   width: 400px;
-  height: 100%;
+  height: calc(90% - 100px);
+  margin-left: 10px;
 }
 
 .feedlist-element {
@@ -45,4 +42,12 @@ html, body {
 
 .feedlist-element-remove {
   cursor: pointer;
+}
+
+.insertFeed-container {
+
+}
+
+.ajax-loader {
+
 }
