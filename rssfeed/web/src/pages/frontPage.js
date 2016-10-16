@@ -17,6 +17,8 @@ const handleKeyDown = (e) => {
 const insertFeed = <div className="insertFeed-container">
   <input name="feedsource"
          type="text"
+         className="insertFeed-container-input"
+         placeholder="Insert new feed URL"
          onKeyDown={handleKeyDown}></input>
 </div>
 

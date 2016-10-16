@@ -25,7 +25,7 @@ html, body {
   border: 2px solid #777;
   border-radius: 4px;
   width: 400px;
-  height: calc(90% - 100px);
+  height: calc(90% - 40px);
   margin-left: 10px;
 }
 
@@ -41,7 +41,14 @@ html, body {
 }
 
 .insertFeed-container {
+  width: 200px;
+  margin: 16px 0px 10px 10px;
+  border-radius: 2px;
+  border: 2px solid #777;
+}
 
+.insertFeed-container-input {
+  border: 0;
 }
 
 .ajax-loader {
