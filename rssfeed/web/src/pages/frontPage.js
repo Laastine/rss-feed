@@ -34,7 +34,6 @@ const FrontPage = React.createClass({
     return (
       <div className="frontPage">
         <div>
-          <Link to="/" className="header-link">Home</Link>
           {insertFeed}
         </div>
         {feedList}

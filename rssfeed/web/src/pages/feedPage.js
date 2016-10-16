@@ -1,5 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router'
 
 const FeedPage = React.createClass({
   contextTypes: {
@@ -14,7 +13,6 @@ const FeedPage = React.createClass({
     return (
       <div className="FeedPage">
         <div>
-          <Link to="/" className="header-link">Home</Link>
         </div>
         {feedList}
       </div>
