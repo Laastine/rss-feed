@@ -49,8 +49,10 @@ html, body {
 
 .insertFeed-container-input {
   border: 0;
+  width: calc(200px - 2px);
+  outline: 0;
 }
 
-.ajax-loader {
-
+.modal-ajax-spinner {
+  margin: 15px;
 }
