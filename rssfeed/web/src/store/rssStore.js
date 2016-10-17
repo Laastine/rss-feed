@@ -41,6 +41,9 @@ function rootReducer(previousState, action) {
     case 'LOAD_FEED_CONTENT_SUCCESS':
       state.singleFeed = action.data
       break
+    case 'CLEAR_FEED_CONTENT':
+      state.singleFeed = []
+      break
     case 'ADD_FEED_SUCCESS':
       state.feeds = append(action.data, state.feeds)
       break

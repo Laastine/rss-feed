@@ -14,6 +14,7 @@ const routes =
            component={FrontPage}/>
     <Route path="/feed/:feedId"
            onEnter={(nextState) => appState.dispatch(getFeedById(nextState.params.feedId))}
+           onLeave={() => appState.dispatch({type: 'CLEAR_FEED_CONTENT'})}
            component={FeedPage}/>
   </Route>
 
