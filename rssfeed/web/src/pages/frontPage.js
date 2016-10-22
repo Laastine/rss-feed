@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router'
+import Feeds from './partials/feeds'
 import {appState} from '../store/rssStore'
-import {postNewFeed, deleteNewFeed} from '../api/rssApi'
+import {postNewFeed, deleteNewFeed, getFeedById} from '../api/rssApi'
 
 const removeFeed = (feedName) => {
   appState.dispatch(deleteNewFeed(feedName))
@@ -16,7 +17,8 @@ const handleKeyDown = (e) => {
 const FrontPage = React.createClass({
   getInitialState() {
     return {
-      rssFeedToBeAdded: ''
+      rssFeedToBeAdded: '',
+      showFeedContent: false
     }
   },
 
@@ -42,19 +44,31 @@ const FrontPage = React.createClass({
       </form>
 
     const {feeds} = this.context.appState
-    const feedList = feeds && feeds.length > 0 ? <ul className="feedlist-container">{feeds.map((f) =>
-      <li className="feedlist-element" key={f.name}><Link
-        to={`/feed/${f.feedid}`}>{f.name}</Link>
-        <div className="feedlist-element-remove" onClick={() => removeFeed(f.name)}>X</div>
-      </li>
-    )}</ul> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
+    const feedList = feeds && feeds.length > 0 ? <div>
+      <ul className="feedlist-container">{feeds.map((f) =>
+        <li className="feedlist-element" key={f.name} onClick={() => {
+          this.setState({showFeedContent: !this.state.showFeedContent})
+          appState.dispatch(getFeedById(f.feedid))
+        }}><Link
+          to={`/feed/${f.feedid}`}>{f.name}</Link>
+          <div className="feedlist-element-remove" onClick={() => removeFeed(f.name)}>X</div>
+        </li>
+      )}</ul>
+    </div> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
+
+    const feedPreview = <div className="feed-preview-container">
+      <Feeds/>
+    </div>
 
     return (
       <div className="frontPage">
         <div>
           {insertFeed}
         </div>
-        {feedList}
+        <div className="frontPage-container">
+          {feedList}
+          {feedPreview}
+        </div>
       </div>
     )
   }

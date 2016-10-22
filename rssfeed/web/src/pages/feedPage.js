@@ -1,4 +1,5 @@
 import React from 'react'
+import Feeds from './partials/feeds'
 
 const FeedPage = React.createClass({
   contextTypes: {
@@ -7,9 +8,7 @@ const FeedPage = React.createClass({
 
   render() {
     const {singleFeed} = this.context.appState
-    const feedList = singleFeed.length > 0 ? <ul>{singleFeed.map((f) =>
-      <li key={f.title}><a href={f.link}>{f.title}</a><div className="feed-element">{f.description}</div></li>
-    )}</ul> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
+    const feedList = singleFeed.length > 0 ? <Feeds/> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
     return (
       <div className="FeedPage">
         <div>
