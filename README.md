@@ -1,5 +1,7 @@
 # RSS-feed
 
+Simple RSS feed reader implemented with F# and JS
+
 ### Environment setup (CLI-friendly)
 http://fsharp.org/guides/mac-linux-cross-platform/
 
