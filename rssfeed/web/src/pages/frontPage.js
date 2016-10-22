@@ -28,10 +28,11 @@ const FrontPage = React.createClass({
   },
 
   render() {
-    const feedList = <ul className="feedlist-container">{this.context.appState.feeds.map((f) =>
+    const {feeds} = this.context.appState
+    const feedList = feeds && feeds.length > 0 ? <ul className="feedlist-container">{feeds.map((f) =>
       <li className="feedlist-element" key={f.name}><Link
         to={`/feed/${f.feedid}`}>{f.name}</Link><div className="feedlist-element-remove" onClick={() => removeFeed(f.name)}>X</div></li>
-    )}</ul>
+    )}</ul> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
 
     return (
       <div className="frontPage">
