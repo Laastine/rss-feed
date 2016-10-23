@@ -33,8 +33,7 @@ const FrontPage = React.createClass({
                  onKeyDown={handleKeyDown}></input></label><br/>
         <input className="insertFeed-container-input-button"
                action="submit" value="ADD FEED"
-               onChange={() => {
-               }}
+               readOnly="true"
                onClick={() => appState.dispatch(postNewFeed(this.state.rssFeedToBeAdded))}></input>
       </form>
 
