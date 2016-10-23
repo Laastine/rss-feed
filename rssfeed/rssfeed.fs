@@ -48,22 +48,23 @@ let serializeFeed (x: Db.Feed): Json =
 let serializeFeeds (fs: Db.Feed List): Json =
   Array [for f in fs -> serializeFeed f]
 
-let serializeMessage (ms: string * string * string): Json =
-  let fst, snd, trd = ms
+let serializeMessage (ms: string * string * string * string): Json =
+  let fst, snd, trd, frth = ms
   Object <| Map.ofList [
     "title", String fst;
     "link", String snd;
-    "description", String trd ]
+    "description", String trd;
+    "feedid", String frth ]
 
-let serializeMessages (ms: List<string * string * string>): Json =
+let serializeMessages (ms: List<string * string * string * string>): Json =
   Array [for f in ms -> serializeMessage f]
 
-let loadRssFeed(url: string): List<string * string * string> =
+let loadRssFeed(url: string, feedId: string): List<string * string * string * string> =
   let doc = XmlLoader.Load(url, LowerCase = true)
   let (Messages.Rss(Channel(Title title, Link link, Description description, items))) = doc.Root
   let items = seq {
     for (Item(Title title, Link link, Description description)) in items do
-      yield title, link, description
+      yield title, link, description, feedId
   }
   Seq.toList items
 
@@ -87,7 +88,7 @@ let feedById (feedId: string) =
 
 let messagesByFeedId (feedId) =
   let feed = Db.getFeedById(Db.getContext(), feedId)
-  loadRssFeed(feed.Source)
+  loadRssFeed(feed.Source, feedId)
   |> serializeMessages
   |> Json.formatWith JsonFormattingOptions.Pretty
   |> OK >=> Writers.setMimeType "application/json; charset=utf-8"
