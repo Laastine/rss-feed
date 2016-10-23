@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const serverApi = axios.create({})
 
-export const checkStatus = (response) => {
+const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response.data
   } else {

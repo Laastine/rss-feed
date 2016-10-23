@@ -1,4 +1,5 @@
 import Bacon from 'baconjs'
+import {browserHistory} from 'react-router'
 import {append, remove, findIndex, propEq} from 'ramda'
 
 const initial = {}
@@ -41,6 +42,7 @@ function rootReducer(previousState, action) {
     case 'LOAD_FEED_CONTENT_SUCCESS':
       state.selectedFeedId = action.data[0].feedid
       state.singleFeed = action.data
+      browserHistory.push(`?feedId=${state.selectedFeedId}`)
       break
     case 'CLEAR_FEED_CONTENT':
       state.singleFeed = []

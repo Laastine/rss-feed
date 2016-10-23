@@ -19,7 +19,7 @@ const FeedPage = React.createClass({
       <div className="FeedPage">
         <button className="feedlist-element-remove" onClick={() => {
           console.log('REMOVing', singleFeed)
-          //removeFeed(singleFeed.name)
+          removeFeed(singleFeed.name)
         }}>UNSUBSCRIBE</button>
         {feedList}
 

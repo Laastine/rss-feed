@@ -10,8 +10,12 @@ import {getFeedById, getFeeds} from './api/rssApi'
 const routes =
   <Route component={AppPage}>
     <Route path="/"
-           onEnter={() => appState.dispatch(getFeeds())}
-           onChange={(_, nextState) => appState.dispatch(getFeedById(nextState.params.feedId))}
+           onEnter={(nextState) => {
+             if (nextState.location.query.feedId) {
+               appState.dispatch(getFeedById(nextState.location.query.feedId))
+             }
+             appState.dispatch(getFeeds())
+           }}
            component={FrontPage}/>
     <Route path="/feed/:feedId"
            onEnter={(nextState) => appState.dispatch(getFeedById(nextState.params.feedId))}
