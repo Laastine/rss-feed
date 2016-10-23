@@ -2,8 +2,6 @@ import Bacon from 'baconjs'
 import {browserHistory} from 'react-router'
 import {append, remove, findIndex, propEq} from 'ramda'
 
-const initial = {}
-
 const promiseMiddleware = (event) => {
   if (event && event.type && event.promise) {
     const {type, promise} = event
@@ -32,7 +30,7 @@ const createAppState = (reducer, initial) => {
 }
 
 function rootReducer(previousState, action) {
-  let state = previousState
+  const state = previousState
   promiseMiddleware(action)
 
   switch (action.type) {
@@ -51,14 +49,12 @@ function rootReducer(previousState, action) {
       state.feeds = append(action.data, state.feeds)
       break
     case 'ADD_FEED_FAILURE':
-      alert(`Couldn't add feed`)
       break
     case 'DELETE_FEED_SUCCESS':
       const index = findIndex(propEq('name', action.data.name))(state.feeds)
       state.feeds = remove(index, 1, state.feeds)
       break
     case 'DELETE_FEED_FAILURE':
-      alert(`Couldn't remove feed`)
       break
   }
   console.log(action.type, state)     // eslint-disable-line
@@ -66,4 +62,4 @@ function rootReducer(previousState, action) {
   return state
 }
 
-export const appState = createAppState(rootReducer, initial)
+export const appState = createAppState(rootReducer, {})

@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {browserHistory, Route, RouterContext, Router} from 'react-router'
+import {browserHistory, Route, Router} from 'react-router'
 import FrontPage from './pages/frontPage'
 import FeedPage from './pages/feedPage'
 import {appState} from './store/rssStore'
@@ -51,6 +51,5 @@ const Main = React.createClass({
     </Router>
   }
 })
-
 
 render(<Main/>, document.getElementById('content'))

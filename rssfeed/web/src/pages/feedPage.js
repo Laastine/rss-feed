@@ -13,16 +13,12 @@ const FeedPage = React.createClass({
   },
 
   render() {
-    const {singleFeed, } = this.context.appState
+    const {singleFeed} = this.context.appState
     const feedList = singleFeed.length > 0 ? <Feeds/> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
     return (
       <div className="FeedPage">
-        <button className="feedlist-element-remove" onClick={() => {
-          console.log('REMOVing', singleFeed)
-          removeFeed(singleFeed.name)
-        }}>UNSUBSCRIBE</button>
+        <button className="feedlist-element-remove" onClick={() => removeFeed(singleFeed.name)}>UNSUBSCRIBE</button>
         {feedList}
-
       </div>
     )
   }
