@@ -19,6 +19,7 @@ open System.Net
 open System.Json
 open System.Runtime.Serialization
 open System.Text
+open System.Text.RegularExpressions
 
 open Messages
 open XmlLoader
@@ -39,6 +40,16 @@ let pathWithId pf f =
       return! f id ctx
     else return None } )
 
+let removeAndleBrackets (text: string) =
+  try
+    let mutable target = text
+    let regex = [">"; "<"]
+    for (pattern) in regex do
+      target <- Regex.Replace(target, pattern, "").Trim()
+    target
+  with
+    | _ -> ""
+
 let serializeFeed (x: Db.Feed): Json =
     Object <| Map.ofList [
           "feedid", Number (decimal x.Feedid);
@@ -52,8 +63,8 @@ let serializeMessage (ms: string * string * string * string): Json =
   let fst, snd, trd, frth = ms
   Object <| Map.ofList [
     "title", String fst;
-    "link", String snd;
-    "description", String trd;
+    "link", String (removeAndleBrackets snd);
+    "description", String (removeAndleBrackets trd);
     "feedid", String frth ]
 
 let serializeMessages (ms: List<string * string * string * string>): Json =
