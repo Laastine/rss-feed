@@ -1,5 +1,11 @@
 import React from 'react'
 import Feeds from './partials/feeds'
+import {appState} from '../store/rssStore'
+import {deleteNewFeed} from '../api/rssApi'
+
+const removeFeed = (feedName) => {
+  appState.dispatch(deleteNewFeed(feedName))
+}
 
 const FeedPage = React.createClass({
   contextTypes: {
@@ -7,13 +13,16 @@ const FeedPage = React.createClass({
   },
 
   render() {
-    const {singleFeed} = this.context.appState
+    const {singleFeed, } = this.context.appState
     const feedList = singleFeed.length > 0 ? <Feeds/> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
     return (
       <div className="FeedPage">
-        <div>
-        </div>
+        <button className="feedlist-element-remove" onClick={() => {
+          console.log('REMOVing', singleFeed)
+          //removeFeed(singleFeed.name)
+        }}>UNSUBSCRIBE</button>
         {feedList}
+
       </div>
     )
   }

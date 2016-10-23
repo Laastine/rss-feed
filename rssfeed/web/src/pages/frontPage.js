@@ -2,11 +2,7 @@ import React from 'react'
 import {Link} from 'react-router'
 import Feeds from './partials/feeds'
 import {appState} from '../store/rssStore'
-import {postNewFeed, deleteNewFeed, getFeedById} from '../api/rssApi'
-
-const removeFeed = (feedName) => {
-  appState.dispatch(deleteNewFeed(feedName))
-}
+import {postNewFeed, getFeedById} from '../api/rssApi'
 
 const handleKeyDown = (e) => {
   if (e.keyCode === 13) { //Enter
@@ -43,15 +39,15 @@ const FrontPage = React.createClass({
                onClick={() => appState.dispatch(postNewFeed(this.state.rssFeedToBeAdded))}></input>
       </form>
 
-    const {feeds} = this.context.appState
+    const {feeds, selectedFeedId} = this.context.appState
     const feedList = feeds && feeds.length > 0 ? <div>
       <ul className="feedlist-container">{feeds.map((f) =>
-        <li className="feedlist-element" key={f.name} onClick={() => {
-          this.setState({showFeedContent: !this.state.showFeedContent})
-          appState.dispatch(getFeedById(f.feedid))
-        }}><Link
-          to={`/feed/${f.feedid}`}>{f.name}</Link>
-          <div className="feedlist-element-remove" onClick={() => removeFeed(f.name)}>X</div>
+        <li className={`feedlist-element${(f.feedid === Number(selectedFeedId) ? '-selected' : '')}`}
+            key={f.name}
+            onClick={() => {
+              this.setState({showFeedContent: !this.state.showFeedContent})
+              appState.dispatch(getFeedById(f.feedid))
+            }}>{f.name}
         </li>
       )}</ul>
     </div> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>

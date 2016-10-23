@@ -1,7 +1,17 @@
 .feed-element {
   border: 2px solid #999;
   border-radius: 4px;
-  width: 400px;
+  width: 95%;
   height: calc(90% - 100px);
   margin-left: 10px;
+}
+
+.feedlist-element-remove {
+  cursor: pointer;
+  outline: 0;
+  border: 1px #222 solid;
+  border-radius: 4px;
+  background-color: #666;
+  color: #EEE;
+  margin: 2px 2px 2px 4px;
 }

@@ -11,6 +11,7 @@ const routes =
   <Route component={AppPage}>
     <Route path="/"
            onEnter={() => appState.dispatch(getFeeds())}
+           onChange={(_, nextState) => appState.dispatch(getFeedById(nextState.params.feedId))}
            component={FrontPage}/>
     <Route path="/feed/:feedId"
            onEnter={(nextState) => appState.dispatch(getFeedById(nextState.params.feedId))}

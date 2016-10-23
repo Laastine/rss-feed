@@ -12,7 +12,7 @@ const Feeds = React.createClass({
       <li key={f.title}><a href={f.link}>{f.title}</a>
         <div className="feed-element">{f.description}</div>
       </li>
-    )}</ul>
+      )}</ul>
   }
 })
 
