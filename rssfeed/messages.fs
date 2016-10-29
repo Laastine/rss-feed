@@ -29,3 +29,13 @@ type Item = Item of Title * Link * Description
 type Channel = Channel of Title * Link * Description * list<Item>
 
 type Rss = Rss of Channel
+
+type AtomTitle = AtomTitle of string
+type AtomSummary = AtomSummary of string
+type AtomLink = AtomLink of string
+type AtomContent = AtomContent of string
+
+type AtomEntry = AtomEntry of AtomTitle * AtomLink * AtomSummary * AtomContent
+type AtomChannel = AtomChannel of AtomTitle * AtomLink * list<AtomEntry>
+
+type Atom = Atom of AtomChannel
