@@ -1,11 +1,12 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Footer from './partials/footer'
 import Header from './partials/header'
 
-const App = React.createClass({
-  contextTypes: {
-    appState: React.PropTypes.object
-  },
+class App extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+  }
 
   render() {
     return (
@@ -16,6 +17,14 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
+
+App.PropTypes = {
+  appState: PropTypes.object
+}
+
+App.contextTypes = {
+  appState: PropTypes.object
+}
 
 export default App

@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Feeds from './partials/feeds'
 import {appState} from '../store/rssStore'
-import {postNewFeed, getFeedById} from '../api/rssApi'
+import {getFeedById, postNewFeed} from '../api/rssApi'
 
 const handleKeyDown = (e) => {
   if (e.keyCode === 13) { //Enter
@@ -9,17 +10,14 @@ const handleKeyDown = (e) => {
   }
 }
 
-const FrontPage = React.createClass({
-  getInitialState() {
-    return {
+class FrontPage extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
       rssFeedToBeAdded: '',
       showFeedContent: false
     }
-  },
-
-  contextTypes: {
-    appState: React.PropTypes.object
-  },
+  }
 
   render() {
     const insertFeed =
@@ -50,10 +48,6 @@ const FrontPage = React.createClass({
       )}</ul>
     </div> : <img className='modal-ajax-spinner' src='/public/loader.gif'/>
 
-    const feedPreview = <div className="feed-preview-container">
-      <Feeds/>
-    </div>
-
     return (
       <div className="frontPage">
         <div>
@@ -61,11 +55,21 @@ const FrontPage = React.createClass({
         </div>
         <div className="frontPage-container">
           {feedList}
-          {feedPreview}
+          <div className="feed-preview-container">
+            <Feeds/>
+          </div>
         </div>
       </div>
     )
   }
-})
+}
+
+FrontPage.PropTypes = {
+  appState: PropTypes.object
+}
+
+FrontPage.contextTypes = {
+  appState: PropTypes.object
+}
 
 export default FrontPage

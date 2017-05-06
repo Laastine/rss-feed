@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {propOr} from 'ramda'
 
-const Feeds = React.createClass({
-  contextTypes: {
-    appState: React.PropTypes.object
-  },
+class Feeds extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+  }
 
   render() {
     const singleFeed = propOr([], 'singleFeed')(this.context.appState)
@@ -14,6 +15,14 @@ const Feeds = React.createClass({
       </li>
       )}</ul>
   }
-})
+}
+
+Feeds.PropTypes = {
+  appState: PropTypes.object
+}
+
+Feeds.contextTypes = {
+  appState: PropTypes.object
+}
 
 export default Feeds

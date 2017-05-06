@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Feeds from './partials/feeds'
 import {appState} from '../store/rssStore'
 import {deleteNewFeed} from '../api/rssApi'
@@ -7,10 +8,10 @@ const removeFeed = (feedName) => {
   appState.dispatch(deleteNewFeed(feedName))
 }
 
-const FeedPage = React.createClass({
-  contextTypes: {
-    appState: React.PropTypes.object
-  },
+class FeedPage extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+  }
 
   render() {
     const {singleFeed} = this.context.appState
@@ -22,6 +23,14 @@ const FeedPage = React.createClass({
       </div>
     )
   }
-})
+}
+
+FeedPage.PropTypes = {
+  appState: PropTypes.object
+}
+
+FeedPage.contextTypes = {
+  appState: PropTypes.object
+}
 
 export default FeedPage

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {render} from 'react-dom'
 import {browserHistory, Route, Router} from 'react-router'
 import FrontPage from './pages/frontPage'
@@ -23,33 +24,38 @@ const routes =
            component={FeedPage}/>
   </Route>
 
-const Main = React.createClass({
-  getInitialState() {
-    return {
+class Main extends React.Component {
+  constructor(props, context) {
+    super(props, context)
+    this.state = {
       feeds: [],
       singleFeed: []
     }
-  },
-
-  childContextTypes: {
-    appState: React.PropTypes.object
-  },
+  }
 
   componentDidMount() {
     appState.changes().onValue((state) => {
       this.setState(state)
     })
-  },
+  }
 
   getChildContext() {
     return {appState: this.state}
-  },
+  }
 
   render() {
     return <Router history={browserHistory}>
       {routes}
     </Router>
   }
-})
+}
+
+Main.PropTypes = {
+  appState: PropTypes.object
+}
+
+Main.childContextTypes = {
+  appState: PropTypes.object
+}
 
 render(<Main/>, document.getElementById('content'))

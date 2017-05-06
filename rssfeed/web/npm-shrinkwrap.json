@@ -1946,6 +1946,18 @@
       "resolved": "https://registry.npmjs.org/create-hmac/-/create-hmac-1.1.4.tgz",
       "dev": true
     },
+    "create-react-class": {
+      "version": "15.5.2",
+      "from": "create-react-class@>=15.5.1 <16.0.0",
+      "resolved": "https://registry.npmjs.org/create-react-class/-/create-react-class-15.5.2.tgz",
+      "dependencies": {
+        "object-assign": {
+          "version": "4.1.1",
+          "from": "object-assign@>=4.1.1 <5.0.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz"
+        }
+      }
+    },
     "crypto-browserify": {
       "version": "3.11.0",
       "from": "crypto-browserify@>=3.0.0 <4.0.0",
@@ -3878,6 +3890,11 @@
       "from": "promise@>=7.1.1 <8.0.0",
       "resolved": "https://registry.npmjs.org/promise/-/promise-7.1.1.tgz"
     },
+    "prop-types": {
+      "version": "15.5.8",
+      "from": "prop-types@latest",
+      "resolved": "https://registry.npmjs.org/prop-types/-/prop-types-15.5.8.tgz"
+    },
     "public-encrypt": {
       "version": "4.0.0",
       "from": "public-encrypt@>=4.0.0 <5.0.0",
@@ -3891,9 +3908,9 @@
       "dev": true
     },
     "query-string": {
-      "version": "4.3.2",
+      "version": "4.3.4",
       "from": "query-string@>=4.2.2 <5.0.0",
-      "resolved": "https://registry.npmjs.org/query-string/-/query-string-4.3.2.tgz"
+      "resolved": "https://registry.npmjs.org/query-string/-/query-string-4.3.4.tgz"
     },
     "querystring": {
       "version": "0.2.0",
@@ -3925,19 +3942,19 @@
       "dev": true
     },
     "react": {
-      "version": "15.4.2",
-      "from": "react@15.4.2",
-      "resolved": "https://registry.npmjs.org/react/-/react-15.4.2.tgz"
+      "version": "15.5.4",
+      "from": "react@15.5.4",
+      "resolved": "https://registry.npmjs.org/react/-/react-15.5.4.tgz"
     },
     "react-dom": {
-      "version": "15.4.2",
-      "from": "react-dom@15.4.2",
-      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-15.4.2.tgz"
+      "version": "15.5.4",
+      "from": "react-dom@15.5.4",
+      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-15.5.4.tgz"
     },
     "react-router": {
-      "version": "3.0.2",
-      "from": "react-router@3.0.2",
-      "resolved": "https://registry.npmjs.org/react-router/-/react-router-3.0.2.tgz"
+      "version": "3.0.5",
+      "from": "react-router@3.0.5",
+      "resolved": "https://registry.npmjs.org/react-router/-/react-router-3.0.5.tgz"
     },
     "read-only-stream": {
       "version": "2.0.0",
