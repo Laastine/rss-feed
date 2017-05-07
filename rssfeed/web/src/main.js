@@ -44,7 +44,9 @@ class Main extends React.Component {
   }
 
   getChildContext() {
-    return {appState: this.state}
+    return {
+      appState: this.state
+    }
   }
 
   render() {
@@ -62,4 +64,6 @@ Main.childContextTypes = {
   appState: PropTypes.object
 }
 
-render(<Main/>, document.getElementById('content'))
+const contentElement = document.getElementById('content')
+
+render(<Main/>, contentElement)
